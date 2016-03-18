@@ -6,31 +6,34 @@ function fasd.complete_word -d "Binding that provides word expansion"
   switch "$token"
     # Match any directory or file.
     case ',?*'
-      set -l queries (echo -n "$token" | tr ',' '\n')
-      set -l expansion (fasd -l "$queries")
+      set -l queries (echo -n "$token" | cut -b 2- | tr ',' '\n')
+      fasd -l $queries < /dev/tty > /tmp/fasd.out
+      read -zl expansions < /tmp/fasd.out
 
-      if test -n "$expansion"
-        echo "$expansion[1]"
+      if test -n "$expansions"
+        printf '%s\n' $expansions
         return
       end
 
     # Match only directories.
     case 'd,?*'
       set -l queries (echo -n "$token" | cut -b 3- | tr ',' '\n')
-      set -l expansion (fasd -d -l "$queries")
+      fasd -l $queries < /dev/tty > /tmp/fasd.out
+      read -zl expansions < /tmp/fasd.out
 
-      if test -n "$expansion"
-        echo "$expansion[1]"
+      if test -n "$expansions"
+        printf '%s\n' $expansions
         return
       end
 
     # Match only files.
     case 'f,?*'
       set -l queries (echo -n "$token" | cut -b 3- | tr ',' '\n')
-      set -l expansion (fasd -f -l "$queries")
+      fasd -l $queries < /dev/tty > /tmp/fasd.out
+      read -zl expansions < /tmp/fasd.out
 
-      if test -n "$expansion"
-        echo "$expansion[1]"
+      if test -n "$expansions"
+        printf '%s\n' $expansions
         return
       end
   end
