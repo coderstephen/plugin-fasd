@@ -9,6 +9,8 @@
 
 <br/>
 
+**This is an experimental fork and depends on unstable OMF features.**
+
 ## Install
 
 ```fish
