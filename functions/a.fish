@@ -1,3 +1,3 @@
 function a -d "any"
-  command fasd -a $argv
+  fasd -a $argv
 end

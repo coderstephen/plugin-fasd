@@ -1,3 +1,3 @@
 function f -d "file"
-  command fasd -f $argv
+  fasd -f $argv
 end

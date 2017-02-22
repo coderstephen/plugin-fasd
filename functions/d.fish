@@ -1,3 +1,3 @@
 function d -d "directory"
-  command fasd -d $argv
+  fasd -d $argv
 end
